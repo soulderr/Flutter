@@ -1,6 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_primer_proyecto/table.dart';
 import 'package:provider/provider.dart';
+import 'footer.dart';
+import 'header.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,42 +35,32 @@ class MyAppState extends ChangeNotifier {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+    // context.watch<MyAppState>(); // Si necesitas observar cambios en MyAppState
 
     return Scaffold(
+      appBar:
+          AppHeader(title: 'Título de Página 1'), // Usar AppHeader como AppBar
       body: Column(
-        children: [
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
+        children: <Widget>[
           Image.asset(
             'assets/images/husares_imagen.jpg', // Ruta de la imagen
             width: 150, // Ancho de la imagen
             height: 300, // Altura de la imagen
           ),
-          Table(
-            border: TableBorder
-                .all(), // Permite agregar una decoración de borde alrededor de tu tabla
-            children: [
-              TableRow(children: [
-                Text('NOMBRE', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('JUEGOS', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('GOLES', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('ASISTENCIAS',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('DEFENSAS', style: TextStyle(fontWeight: FontWeight.bold)),
-              ]),
-              TableRow(children: [
-                Text('Cristian'),
-                Text('2'),
-                Text('Dato 3'),
-                Text('Dato 3'),
-                Text('Columna 3'),
-              ]),
-              // Puedes agregar más TableRow según lo necesites
-            ],
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondPage()),
+              );
+            },
+            child: Text('Ir a la Segunda Página'),
           ),
+          // Añade más widgets a tu columna según sea necesario
         ],
       ),
+      bottomNavigationBar:
+          AppFooter(), // Usar AppFooter como BottomNavigationBar
     );
   }
 }
